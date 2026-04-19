@@ -31,7 +31,7 @@ If you find this tool useful, please consider sponsoring the development!
 
 ## 🚀 Installation
 
-1.  **Download**: Go to the [Releases](https://github.com/Genghot/GGGoogleTranslate/releases) page and download the latest `GGGoogleTranslate.zip`.
+1.  **Download**: Go to the [Releases](https://github.com/Genghot/GGGoogleTranslate/releases/tag/v1.0.0) page and download the `GGGoogleTranslate.zip` file.
 2.  **Install**: Extract the ZIP file and drag `GGGoogleTranslate.app` into your `/Applications` folder.
 3.  **Launch**: Open the app from your Applications folder. You will see a globe icon in your menu bar.
 4.  **Permissions**:
