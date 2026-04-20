@@ -31,8 +31,8 @@ If you find this tool useful, please consider sponsoring the development!
 
 ## 🚀 Installation
 
-1.  **Download**: Go to the [Releases](https://github.com/Genghot/GGGoogleTranslate/releases/tag/v1.0.0) page and download the `GGGoogleTranslate.zip` file.
-2.  **Install**: Extract the ZIP file and drag `GGGoogleTranslate.app` into your `/Applications` folder.
+1.  **Download**: Go to the [Releases](https://github.com/Genghot/GGGoogleTranslate/releases/tag/v1.0.1) page and download `GGGoogleTranslate_v1.0.1.dmg`.
+2.  **Install**: Open the `.dmg` file and drag `GGGoogleTranslate` into the `/Applications` folder alias.
 3.  **Launch**: Open the app from your Applications folder. You will see a globe icon in your menu bar.
 4.  **Permissions**:
     *   The first time you use the hotkey, macOS will ask for **Accessibility Permissions**.
