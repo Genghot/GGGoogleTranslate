@@ -47,6 +47,13 @@ If you find this tool useful, please consider sponsoring the development!
 > 2. In the dialog that appears, click **Open** again.
 > 3. This will register the app as safe, and it will launch normally from then on.
 
+> [!TIP]
+> **Still can't open?**
+> If macOS is still being stubborn, you can manually allow it by running this one command in your Terminal:
+> ```bash
+> xattr -cr /Applications/GGGoogleTranslate.app
+> ```
+
 ---
 
 ## 📖 How to Use
