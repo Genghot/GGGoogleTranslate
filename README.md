@@ -39,6 +39,14 @@ If you find this tool useful, please consider sponsoring the development!
     *   This is required so the app can simulate a "Copy" command to grab your highlighted text.
     *   Go to **System Settings > Privacy & Security > Accessibility** and enable **GGGoogleTranslate**.
 
+> [!IMPORTANT]
+> **Security Note (First Launch)**
+> Because this app is independently developed and not notarized by Apple, you might see a warning that Apple "could not verify it for malware."
+> To open it:
+> 1. **Right-click (or Control-click)** the app in your Applications folder and select **Open**.
+> 2. In the dialog that appears, click **Open** again.
+> 3. This will register the app as safe, and it will launch normally from then on.
+
 ---
 
 ## 📖 How to Use
