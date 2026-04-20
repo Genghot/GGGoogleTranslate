@@ -19,7 +19,9 @@ final class HotkeyManager {
         // Setup Carbon event handler
         let eventType = EventTypeSpec(eventClass: OSType(kEventClassKeyboard), eventKind: UInt32(kEventHotKeyPressed))
         let ptr = UnsafeMutableRawPointer(Unmanaged.passUnretained(self).toOpaque())
-        InstallEventHandler(GetApplicationEventTarget(), { (nextHandler, event, userData) -> OSStatus in
+        
+        let handlerErr = InstallEventHandler(GetApplicationEventTarget(), { (nextHandler, event, userData) -> OSStatus in
+            print("▶️ Carbon event handler triggered!")
             if let event = event, let userData = userData {
                 var hotKeyID = EventHotKeyID()
                 let err = GetEventParameter(event,
@@ -30,17 +32,22 @@ final class HotkeyManager {
                                             nil,
                                             &hotKeyID)
                 
-                if err == noErr, hotKeyID.id == 1 {
-                    let mySelf = Unmanaged<HotkeyManager>.fromOpaque(userData).takeUnretainedValue()
-                    // Check if recording – if so ignore hotkey trigger
-                    print("▶️ Carbon detected hotkey press! Recording: \(mySelf.appState.isRecordingHotkey)")
-                    if !mySelf.appState.isRecordingHotkey {
-                        DispatchQueue.main.async { mySelf.onHotkeyPressed?() }
+                if err == noErr {
+                    print("▶️ Caught HotKey (Signature: \(hotKeyID.signature), ID: \(hotKeyID.id))")
+                    if hotKeyID.signature == 1195656532 { // 'GGGT' in decimal
+                        let mySelf = Unmanaged<HotkeyManager>.fromOpaque(userData).takeUnretainedValue()
+                        if !mySelf.appState.isRecordingHotkey {
+                            DispatchQueue.main.async { mySelf.onHotkeyPressed?() }
+                        }
                     }
+                } else {
+                    print("▶️ Failed to get hotkey parameter (Error: \(err))")
                 }
             }
             return noErr
         }, 1, [eventType], ptr, nil)
+        
+        print("▶️ Handler Installation Status: \(handlerErr)")
         
         // Register the initial hotkey
         registerCarbonHotkey()
@@ -61,11 +68,16 @@ final class HotkeyManager {
         if flags.contains(.shift) { carbonMods |= UInt32(shiftKey) }
         if flags.contains(.control) { carbonMods |= UInt32(controlKey) }
         
-        let hotKeyID = EventHotKeyID(signature: OSType(1001), id: 1)
+        print("▶️ Registering Carbon Hotkey: KeyCode=\(keyCode), Mods=\(carbonMods)")
+        
+        // Use 'GGGT' as signature (1195656532)
+        let hotKeyID = EventHotKeyID(signature: OSType(1195656532), id: 1)
         let status = RegisterEventHotKey(keyCode, carbonMods, hotKeyID, GetApplicationEventTarget(), 0, &hotKeyRef)
         
-        if status != noErr {
-            print("Failed to register global hotkey (Status: \(status))")
+        if status == noErr {
+            print("▶️ Hotkey successfully registered (Status: \(status))")
+        } else {
+            print("❌ Failed to register global hotkey (Status: \(status))")
         }
     }
     

@@ -20,10 +20,15 @@ struct GGGTranslateApp: App {
                     }
                 }
                 .onAppear {
+                    // Safe injection point post-launch
                     appDelegate.appState = appState
                 }
         } label: {
             Image(systemName: "globe")
+                .onAppear {
+                    // Inject immediately when the icon appears in the menu bar!
+                    appDelegate.appState = appState
+                }
         }
         .menuBarExtraStyle(.window)
     }
@@ -54,7 +59,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         
         // Setup happens when appState is injected by the view
-        // If appState is somehow injected early:
         if let state = appState, translatePanel == nil {
             setup(with: state)
         }

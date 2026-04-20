@@ -9,7 +9,6 @@ final class TextCaptureService {
     /// - Parameter completion: Called with the captured text, or nil if nothing was selected.
     func captureSelectedText(completion: @escaping (String?) -> Void) {
         let pasteboard = NSPasteboard.general
-        let initialChangeCount = pasteboard.changeCount
         
         // 1. Save current clipboard contents
         let savedItems = savePasteboard(pasteboard)
@@ -17,14 +16,17 @@ final class TextCaptureService {
         // 2. Clear the clipboard
         pasteboard.clearContents()
         
-        // 3. Simulate ⌘C
+        // 3. Record change count AFTER clearing, so we only detect the copy
+        let targetChangeCount = pasteboard.changeCount
+        
+        // 4. Simulate ⌘C
         print("▶️ Simulating ⌘C...")
         simulateCopyKeypress()
         
-        // 4. Robust wait: Check for change count increment (max 0.5s)
+        // 5. Robust wait: Check for change count increment (max 0.5s)
         var attempts = 0
         func checkClipboard() {
-            if pasteboard.changeCount > initialChangeCount {
+            if pasteboard.changeCount > targetChangeCount {
                 let capturedText = pasteboard.string(forType: .string)
                 print("▶️ captured text changed! Result: \(capturedText?.prefix(20) ?? "nil")")
                 finalizeCapture(capturedText)
