@@ -5,7 +5,7 @@ APP_NAME="GGGoogleTranslate"
 BUILD_DIR="./build"
 APP_DIR="$BUILD_DIR/$APP_NAME.app"
 DMG_DIR="$BUILD_DIR/dmg_staging"
-DMG_FILE="$BUILD_DIR/${APP_NAME}_v1.0.1.dmg"
+DMG_FILE="$BUILD_DIR/${APP_NAME}_v1.0.0.dmg"
 
 echo "Creating DMG..."
 
